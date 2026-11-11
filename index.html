@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Gemy ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+canvas {
+    width: 350px;
+    max-width: 90vw;
+}
+
+h1 {
+    color: white;
+    text-shadow: 0 0 15px red;
+    font-size: 42px;
+    margin: 10px;
+}
+
+p {
+    color: white;
+    font-size: 20px;
+    text-shadow: 0 0 10px red;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <canvas id="heart" width="500" height="450"></canvas>
+    <h1 id="name"></h1>
+    <p id="message1"></p>
+    <p id="message2"></p>
+</div>
+
+<script>
+const canvas = document.getElementById("heart");
+const ctx = canvas.getContext("2d");
+
+let points = [];
+let t = 0;
+
+for (let i = 0; i < 180; i++) {
+    let a = (Math.PI * 2 * i) / 180;
+    let x = 16 * Math.pow(Math.sin(a), 3);
+    let y = 13 * Math.cos(a) - 5 * Math.cos(2*a)
+           - 2 * Math.cos(3*a) - Math.cos(4*a);
+
+    points.push({
+        x: 250 + x * 12,
+        y: 210 - y * 12
+    });
+}
+
+function drawHeart() {
+    if (t < points.length) {
+        ctx.beginPath();
+        ctx.strokeStyle = "#ff2020";
+        ctx.lineWidth = 3;
+        ctx.shadowColor = "red";
+        ctx.shadowBlur = 15;
+
+        if (t > 0) {
+            ctx.moveTo(points[t-1].x, points[t-1].y);
+            ctx.lineTo(points[t].x, points[t].y);
+            ctx.stroke();
+        }
+
+        t++;
+        setTimeout(drawHeart, 40);
+    }
+}
+
+drawHeart();
+
+setTimeout(() => {
+    document.getElementById("name").innerText = "Gemy ❤️";
+}, 7800);
+
+setTimeout(() => {
+    document.getElementById("message1").innerText =
+        "Happy Valentine's Day";
+}, 8800);
+
+setTimeout(() => {
+    document.getElementById("message2").innerText =
+        "You Are My Favorite Person";
+}, 9800);
+</script>
+</body>
+</html>
